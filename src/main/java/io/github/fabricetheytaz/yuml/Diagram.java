@@ -1,6 +1,9 @@
 package io.github.fabricetheytaz.yuml;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static io.github.fabricetheytaz.util.Argument.notNull;
 
 /**
  * @version 0.1.0
@@ -8,10 +11,30 @@ import java.io.IOException;
  */
 public class Diagram
 	{
+	protected final List<String> lines;
+
 	protected Type type;
 	protected Style style;
 
-	//public List<String> x;
+	public Diagram(final List<String> lines)
+		{
+		super();
+
+		this.lines = notNull(lines);
+		}
+
+	public Diagram()
+		{
+		this(new ArrayList<>());
+		}
+
+	/**
+	 * @since 0.1.0
+	 */
+	public final List<String> getLines()
+		{
+		return lines;
+		}
 
 	/**
 	 * @since 0.1.0
@@ -43,13 +66,5 @@ public class Diagram
 	public final void setStyle(final Style style)
 		{
 		this.style = style;
-		}
-
-	/**
-	 * @since 0.1.0
-	 */
-	public final byte[] draw(final Format format) throws IOException
-		{
-		return YUML.draw(this, format);
 		}
 	}
