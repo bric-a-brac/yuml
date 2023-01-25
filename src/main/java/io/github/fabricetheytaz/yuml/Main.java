@@ -1,16 +1,10 @@
 package io.github.fabricetheytaz.yuml;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
-
-import io.github.fabricetheytaz.yuml.exceptions.YUMLException;
+import io.github.fabricetheytaz.yuml.client.Client;
+import io.github.fabricetheytaz.yuml.client.StandardInput;
+import io.github.fabricetheytaz.yuml.client.StandardOutput;
 
 public final class Main
 	{
@@ -19,6 +13,26 @@ public final class Main
 		throw new UnsupportedOperationException();
 		}
 
+	public static void main(String[] args)
+		{
+		// yuml --input test.yuml --output = test.png --type class --format png
+		// yuml -i test.yuml -o = test.png --png
+		// cat test.yuml | yuml --png > test.png
+
+		// Essai stdin/stdout
+		final Client client = new Client();
+
+		try
+			{
+			client.draw(new StandardInput(), new StandardOutput());
+			}
+		catch (final IOException ex)
+			{
+			System.err.println(ex.getMessage());
+			}
+		}
+
+	/*
 	public static void main(final String[] args)
 		{
 		// yuml --input=test.yuml --output=test.png --format=png
@@ -47,6 +61,9 @@ public final class Main
 			final String input = command.getParsedOptionValue(inputOption).toString();
 			System.out.println(input);
 
+			Information info = YUML.draw("DSL / Path");
+			Diagram diagram = YUML.getDiagram(info);
+
 			YUML.draw(Paths.get("test.yuml"), Format.PNG, bytes ->
 				{
 				Files.write(Paths.get("test.png"), bytes);
@@ -65,4 +82,5 @@ public final class Main
 			ex.printStackTrace();
 			}
 		}
+	*/
 	}

@@ -1,10 +1,5 @@
 package io.github.fabricetheytaz.yuml;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringWriter;
-
 import static io.github.fabricetheytaz.util.Argument.notNull;
 
 /**
@@ -16,11 +11,29 @@ public class Util
 	/**
 	 * @since 0.1.0
 	 */
-	public static final <T extends Enum<?>> T getOrDefault(final String name, final Class<T> classOfT, final T defaultValue)
+	public static final <T extends Enum<T>> T getOrDefault(final String name, final Class<T> classOfT, final T defaultValue)
 		{
-			notNull(classOfT);
-		//	System.out.println(classOfT.getCanonicalName());
-		throw new UnsupportedOperationException();
+		try
+			{
+			// Rechercher avec son nom
+			return Enum.valueOf(notNull(classOfT), notNull(name).toUpperCase());
+			}
+		catch (final IllegalArgumentException ex)
+			{
+			// Pas trouvé
+			}
+
+		// Rechercher avec toString()
+		for (final T t : classOfT.getEnumConstants())
+			{
+			if (t.toString().equalsIgnoreCase(name))
+				{
+				return t;
+				}
+			}
+
+		// Pas trouvé
+		return defaultValue;
 		}
 
 	/*
@@ -34,20 +47,4 @@ public class Util
 		return getOrDefault(Type.class, defaultValue);
 		}
 	*/
-
-	/**
-	 * @since 0.1.0
-	 */
-	public static final String readFromStandardInput() throws IOException
-		{
-		try (final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)))
-			{
-			try (final StringWriter writer = new StringWriter())
-				{
-				reader.transferTo(writer);
-
-				return writer.toString();
-				}
-			}
-		}
 	}

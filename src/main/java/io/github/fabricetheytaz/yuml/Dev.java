@@ -1,40 +1,67 @@
 package io.github.fabricetheytaz.yuml;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
-import io.github.fabricetheytaz.yuml.exceptions.YUMLException;
+import io.github.fabricetheytaz.yuml.client.exceptions.YUMLException;
 
+//@SuppressWarnings("unused")
 public class Dev
 	{
-	public static void devNotFound() throws Exception
-		{
-		//final Information information = new YUML().getInformation("e3c59524"); // OK
-		//final Information information = new YUML().getInformation("e3c59524aaa"); // OK 404
-		final Information information = new YUML().getInformation(""); // OK 404
+	public static final YUML yuml = new YUML();
 
-		//System.out.println(information.getType());
+	public static final String DSL_ONE_LINE = "[Curl]->[Example]-.-[Nice{bg:wheat}]";
+
+	// Fail 500
+	//public static final String DSL_TWO_LINES = "[Curl]->[Example]-.-[Nice{bg:wheat}]\n[YUML]^[API]";
+	// Même pour POST il faut joindre avec , ça ne fonctionne pas avec \n
+	//final byte[] bytes = yuml.draw(DSL_TWO_LINES);
+	// OK
+	public static final String DSL_TWO_LINES = "[Curl]->[Example]-.-[Nice{bg:wheat}],[YUML]^[API]";
+
+	public static final Path testYuml = Paths.get(".", "tests", "test.yuml");
+	public static final Path testPng = Paths.get(".", "tests", "test.png");
+	public static final Path testSvg = Paths.get(".", "tests", "test.svg");
+
+	public static void devDraw() throws Exception
+		{
+		//final byte[] bytes = yuml.draw(testYuml);
+		//Files.write(testSvg, bytes);
+
+		//yuml.draw(testYuml, bytes -> Files.write(testSvg, bytes));
+		//yuml.draw(testYuml, meta -> System.out.println(meta.getDigest()), bytes -> Files.write(testSvg, bytes));
+		//yuml.draw(testYuml, testSvg);
+
+		//final Client client = new Client();
+		//client.draw(null, null);
+		//client.draw(new FileInput(null), new FileOutput(null));
+		//client.draw(new StandardInput(), new StandardOutput());
 		}
 
-	public static void main(String[] args)
+	/*
+	public static void devEnum() throws Exception
 		{
-		//final String dsl = "[Application]->[AbstractApplication],[ConsoleApplication]->[Application],[WebSite]->[Application]";
-		//Util.getOrDefault("sdsd", Direction.class, DEFAULT_DIRECTION);
-		//Util.getOrDefault("sdsd", Style.class, DEFAULT_STYLE);
+		final Direction nullDirection = Util.getOrDefault("sdd", Direction.class, null);
+		System.out.println(nullDirection);
 
-		/*
-		final Path input = Paths.get(".", "test.yuml");
-		final Path output = Paths.get(".", "test.png");
+		final Direction defaultDirection = Util.getOrDefault("sdd", Direction.class, Direction.TOP_DOWN);
+		System.out.println(defaultDirection);
 
-		YUML.draw(input, Format.PNG, bytes ->
-			{
-			System.out.println(bytes.length);
-			//Files.write(output, bytes);
-			});
-		*/
+		final Direction topDownDirectionName = Util.getOrDefault("TOP_DOWN", Direction.class, null);
+		System.out.println(topDownDirectionName);
 
+		final Direction topDownDirectionToString = Util.getOrDefault("topDown", Direction.class, null);
+		System.out.println(topDownDirectionToString);
+		}
+	*/
+
+	public static void dev()
+		{
 		try
 			{
-			devNotFound();
+			//devNotFound();
+			devDraw();
 			}
 		catch (final IOException ex)
 			{
@@ -47,6 +74,11 @@ public class Dev
 		catch (final Exception ex)
 			{
 			ex.printStackTrace();
-			}
+			}	
+		}
+
+	public static void main(String[] args)
+		{
+		dev();
 		}
 	}
