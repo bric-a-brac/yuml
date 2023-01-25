@@ -18,4 +18,8 @@ public class ClassDiagram extends Diagram
 
 		type = Type.CLASS;
 		}
+
+	public void saveAsPNG()
+		{
+		}
 	}
