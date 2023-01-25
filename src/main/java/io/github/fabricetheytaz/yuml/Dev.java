@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import io.github.fabricetheytaz.yuml.client.Direction;
+import io.github.fabricetheytaz.yuml.client.Format;
+import io.github.fabricetheytaz.yuml.client.Style;
 import io.github.fabricetheytaz.yuml.client.exceptions.YUMLException;
 
-//@SuppressWarnings("unused")
 public class Dev
 	{
 	public static final YUML yuml = new YUML();
@@ -26,17 +28,22 @@ public class Dev
 
 	public static void devDraw() throws Exception
 		{
-		//final byte[] bytes = yuml.draw(testYuml);
-		//Files.write(testSvg, bytes);
+		yuml.draw(testYuml, testPng, Format.PNG);
 
-		//yuml.draw(testYuml, bytes -> Files.write(testSvg, bytes));
-		//yuml.draw(testYuml, meta -> System.out.println(meta.getDigest()), bytes -> Files.write(testSvg, bytes));
-		//yuml.draw(testYuml, testSvg);
+		final ClassDiagram classDiagram = new ClassDiagram();
 
-		//final Client client = new Client();
-		//client.draw(null, null);
-		//client.draw(new FileInput(null), new FileOutput(null));
-		//client.draw(new StandardInput(), new StandardOutput());
+		YUML.draw(classDiagram, null, null, null, null);
+
+		YUML.draw(classDiagram, null, Style.SCRUFFY, Direction.TOP_DOWN, Format.PDF);
+
+		YUML.draw(classDiagram, Style.SCRUFFY, Direction.TOP_DOWN, Format.PDF);
+
+		final ClassDiagram diagram = new ClassDiagram();
+
+		diagram.setStyle(Style.SCRUFFY);
+		//diagram.setType(null);
+
+		//YUML.draw(diagram);
 		}
 
 	/*
